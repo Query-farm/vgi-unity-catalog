@@ -326,5 +326,5 @@ column_lineage(
     {"upstream_cols": [], "downstream_cols": [col_info("sales", "marts", "daily_revenue", "order_date")]},
 )
 
-OUT.write_text(json.dumps(sorted(exchanges, key=lambda e: e["key"]), indent=1, sort_keys=True) + "\n")
+OUT.write_text(json.dumps(sorted(exchanges, key=lambda e: e["key"]), indent=1, sort_keys=True) + "\n", encoding="utf-8")
 print(f"wrote {len(exchanges)} exchanges to {OUT}", file=sys.stderr)

@@ -19,6 +19,7 @@ def _start(env: dict[str, str]) -> tuple[subprocess.Popen[str], str]:
         stdout=subprocess.PIPE,
         stderr=subprocess.DEVNULL,
         text=True,
+        encoding="utf-8",
         env={k: v for k, v in {**os.environ, **env}.items() if not k.startswith("MOCK_RECORD")},
     )
     assert proc.stdout is not None

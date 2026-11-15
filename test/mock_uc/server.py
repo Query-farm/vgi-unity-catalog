@@ -25,7 +25,6 @@ Prints ``PORT:<n>`` on stdout once listening.
 from __future__ import annotations
 
 import base64
-import fcntl
 import json
 import os
 import sys
@@ -67,7 +66,7 @@ def load(path: Path) -> dict[str, dict[str, Any]]:
     if not path.exists():
         return {}
     out = {}
-    for ex in json.loads(path.read_text()):
+    for ex in json.loads(path.read_text(encoding="utf-8")):
         out[ex["key"]] = ex
     return out
 
@@ -168,12 +167,15 @@ class Handler(BaseHTTPRequestHandler):
             raise RuntimeError("upstream echoed the token; refusing to record it")
         exchange = {"key": key, "status": status, "content_type": ctype.split(";")[0], "response": text}
         # Both replay instances may record into the same file: merge under an exclusive file lock.
-        with LOCK, open(RECORD_OUT + ".lock", "w") as lock:
+        # Recording is maintainer tooling (POSIX only); replay, which CI uses, never imports fcntl.
+        import fcntl
+
+        with LOCK, open(RECORD_OUT + ".lock", "w", encoding="utf-8") as lock:
             fcntl.flock(lock, fcntl.LOCK_EX)
             merged = load(Path(RECORD_OUT))
             merged[key] = exchange
             ordered = [merged[k] for k in sorted(merged)]
-            Path(RECORD_OUT).write_text(json.dumps(ordered, indent=1, sort_keys=True) + "\n")
+            Path(RECORD_OUT).write_text(json.dumps(ordered, indent=1, sort_keys=True) + "\n", encoding="utf-8")
         self._send(status, raw, ctype)
 
 
