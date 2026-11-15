@@ -1,0 +1,120 @@
+# Private graders for the public vgi.agent_test_tasks in the worker's catalog metadata.
+# `vgi-lint lint --ai` (make lint-ai) runs an agent on each prompt and grades it against
+# reference_sql. See https://github.com/Query-farm/vgi-lint-check (VGI920).
+#
+# Every relation needs a `unity_catalog` secret. To grade offline, start the replay server
+# (`MOCK_PORT=5058 .venv/bin/python test/mock_uc/server.py`; add MOCK_FLAVOR=databricks for the
+# tasks whose prompt starts with 'Databricks:') and create, in the session the agent uses,
+#   CREATE SECRET (TYPE unity_catalog, HOST 'http://127.0.0.1:5058', TOKEN 'test-token', PAGE_SIZE 2);
+# (plus FLAVOR 'databricks' for the Databricks tasks). The answers are those of the recorded
+# open-source server (test/fixtures/uc_recording.json, seeded by test/fixtures/seed_uc.py) and
+# of test/fixtures/databricks_extras.json.
+tasks:
+  - name: external_tables_in_sales
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT id FROM unity_catalog.main.datasets WHERE catalog_name = 'sales' AND table_type = 'EXTERNAL'
+  - name: partition_columns_of_orders
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT column_name, native_data_type FROM unity_catalog.main.columns WHERE dataset_id = 'sales.raw.orders' AND partition_index IS NOT NULL
+  - name: who_can_select_orders
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT principal FROM unity_catalog.main.grants WHERE securable_type = 'table' AND securable_name = 'sales.raw.orders' AND privilege = 'SELECT'
+  - name: model_versions_ready
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT count(*) FROM unity_catalog.main.model_versions WHERE model_id = 'ml.models.churn' AND status = 'READY'
+  - name: catalog_team_property
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT id, properties['team'] FROM unity_catalog.main.catalogs WHERE properties['team'] IS NOT NULL
+  - name: schemas_per_catalog
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT catalog_name, count(*) FROM unity_catalog.main.schemas GROUP BY catalog_name
+  - name: view_reading_orders
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT id FROM unity_catalog.main.views WHERE view_definition ILIKE '%sales.raw.orders%'
+  - name: external_volume_locations
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT id, storage_location FROM unity_catalog.main.volumes WHERE volume_type = 'EXTERNAL'
+  - name: python_udfs
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT id FROM unity_catalog.main.functions WHERE external_language = 'python'
+  - name: models_in_ml_catalog
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT id, description FROM unity_catalog.main.registered_models WHERE catalog_name = 'ml'
+  - name: raw_zone_credential_kind
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT s.credential_type FROM unity_catalog.main.external_locations e JOIN unity_catalog.main.storage_credentials s ON s.name = e.credential_name WHERE e.url = 's3://acme-lake/raw'
+  - name: objects_owned_per_type
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT entity_type, count(*) FROM unity_catalog.main.owners WHERE owner_id = 'admin' GROUP BY entity_type
+  - name: metastore_id
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT metastore_id FROM unity_catalog.main.metastores
+  - name: owner_of_quoted_name
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT owner FROM unity_catalog.main.datasets WHERE qualified_name = unity_catalog.main.uc_qualified_name('`Sales`.`RAW`.`Orders`')
+  - name: privilege_spelling
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT securable_name, principal FROM unity_catalog.main.grants WHERE securable_type = 'schema' AND privilege = unity_catalog.main.uc_privilege('use schema')
+  - name: federated_postgres_host
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT options['host'] FROM unity_catalog.main.connections WHERE connection_type = 'POSTGRESQL'
+  - name: delta_shares
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT name, owner FROM unity_catalog.main.shares
+  - name: inactive_recipients
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT name FROM unity_catalog.main.recipients WHERE NOT activated
+  - name: inherited_privileges_on_orders
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT principal, privilege, inherited_from_name FROM unity_catalog.main.effective_grants WHERE securable_type = 'table' AND securable_name = 'sales.raw.orders' AND inherited_from_name IS NOT NULL
+  - name: pii_allowed_values
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT unnest(allowed_values) FROM unity_catalog.main.tags WHERE id = 'pii'
+  - name: pii_columns_customers
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT column_name FROM unity_catalog.main.tag_assignments WHERE entity_type = 'column' AND entity_id = 'sales.raw.customers' AND tag_key = 'pii'
+  - name: daily_revenue_upstream_columns
+    unordered: true
+    ignore_column_names: true
+    reference_sql: >-
+      SELECT upstream_id, upstream_column FROM unity_catalog.main.lineage_edges WHERE level = 'column' AND downstream_id = 'sales.marts.daily_revenue' AND downstream_column = 'revenue'

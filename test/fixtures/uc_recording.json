@@ -1,0 +1,428 @@
+[
+ {
+  "content_type": "text/plain",
+  "key": "[\"GET\",\"/api/2.0/lineage-tracking/table-lineage\",[[\"include_entity_lineage\",\"true\"],[\"table_name\",\"sales.marts.daily_revenue\"]],\"{\\\"include_entity_lineage\\\":true,\\\"table_name\\\":\\\"sales.marts.daily_revenue\\\"}\"]",
+  "response": "Status: 404\nDescription: Not Found\n",
+  "status": 404
+ },
+ {
+  "content_type": "text/plain",
+  "key": "[\"GET\",\"/api/2.1/tag-policies\",[[\"page_size\",\"2\"]],\"\"]",
+  "response": "Status: 404\nDescription: Not Found\n",
+  "status": 404
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/catalogs\",[[\"max_results\",\"2\"],[\"page_token\",\"sales\"]],\"\"]",
+  "response": "{\"catalogs\":[{\"name\":\"unity\",\"comment\":\"Main catalog\",\"properties\":{},\"owner\":null,\"created_at\":1721241605334,\"created_by\":null,\"updated_at\":null,\"updated_by\":null,\"id\":\"f029b870-9468-4f10-badc-630b41e5690d\",\"storage_root\":null,\"storage_location\":null}],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/catalogs\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"catalogs\":[{\"name\":\"ml\",\"comment\":\"Machine learning assets\",\"properties\":{},\"owner\":\"admin\",\"created_at\":1794738299423,\"created_by\":\"admin\",\"updated_at\":1794738299423,\"updated_by\":\"admin\",\"id\":\"8068dc73-50b9-4c3e-ba47-1f167715a128\",\"storage_root\":null,\"storage_location\":null},{\"name\":\"sales\",\"comment\":\"Sales data products\",\"properties\":{\"tier\":\"gold\",\"team\":\"finance\"},\"owner\":\"admin\",\"created_at\":1794738299399,\"created_by\":\"admin\",\"updated_at\":1794738299399,\"updated_by\":\"admin\",\"id\":\"8e52e0cd-6f65-4bbf-86cc-dc356c31148e\",\"storage_root\":null,\"storage_location\":null}],\"next_page_token\":\"sales\"}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/catalogs/sales\",[],\"\"]",
+  "response": "{\"name\":\"sales\",\"comment\":\"Sales data products\",\"properties\":{\"tier\":\"gold\",\"team\":\"finance\"},\"owner\":\"admin\",\"created_at\":1794738299399,\"created_by\":\"admin\",\"updated_at\":1794738299399,\"updated_by\":\"admin\",\"id\":\"8e52e0cd-6f65-4bbf-86cc-dc356c31148e\",\"storage_root\":null,\"storage_location\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/connections\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"error_code\":\"INTERNAL\",\"details\":[{\"reason\":\"INTERNAL\",\"@type\":\"type.googleapis.com/google.rpc.ErrorInfo\"}],\"message\":\"Couldn't unwrap service.\"}",
+  "status": 500
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/credentials\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"credentials\":[{\"name\":\"lake_role\",\"aws_iam_role\":{\"role_arn\":\"arn:aws:iam::123456789012:role/uc-lake\",\"unity_catalog_iam_arn\":null,\"external_id\":\"b63878e9-dfeb-4a7b-86df-0bd8b74f3862\"},\"comment\":\"IAM role for the lake bucket\",\"owner\":\"admin\",\"full_name\":null,\"id\":\"39636451-e055-4568-95f6-b8b12ccf0224\",\"created_at\":1794738299943,\"created_by\":\"admin\",\"updated_at\":1794738299943,\"updated_by\":\"admin\",\"purpose\":\"STORAGE\"}],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/entity-tag-assignments/tables/unity.default.marksheet/tags\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"error_code\":\"INTERNAL\",\"details\":[{\"reason\":\"INTERNAL\",\"@type\":\"type.googleapis.com/google.rpc.ErrorInfo\"}],\"message\":\"Couldn't unwrap service.\"}",
+  "status": 500
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/entity-tag-assignments/tables/unity.default.marksheet_uniform/tags\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"error_code\":\"INTERNAL\",\"details\":[{\"reason\":\"INTERNAL\",\"@type\":\"type.googleapis.com/google.rpc.ErrorInfo\"}],\"message\":\"Couldn't unwrap service.\"}",
+  "status": 500
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/entity-tag-assignments/tables/unity.default.numbers/tags\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"error_code\":\"INTERNAL\",\"details\":[{\"reason\":\"INTERNAL\",\"@type\":\"type.googleapis.com/google.rpc.ErrorInfo\"}],\"message\":\"Couldn't unwrap service.\"}",
+  "status": 500
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/entity-tag-assignments/tables/unity.default.user_countries/tags\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"error_code\":\"INTERNAL\",\"details\":[{\"reason\":\"INTERNAL\",\"@type\":\"type.googleapis.com/google.rpc.ErrorInfo\"}],\"message\":\"Couldn't unwrap service.\"}",
+  "status": 500
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/external-locations\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"external_locations\":[{\"name\":\"lake_raw\",\"id\":\"bf50ed96-4304-4b17-929f-769de5933648\",\"url\":\"s3://acme-lake/raw\",\"credential_name\":\"lake_role\",\"comment\":\"Raw zone\",\"owner\":\"admin\",\"credential_id\":\"39636451-e055-4568-95f6-b8b12ccf0224\",\"created_at\":1794738299965,\"created_by\":\"admin\",\"updated_at\":null,\"updated_by\":null}],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/functions\",[[\"catalog_name\",\"ml\"],[\"max_results\",\"2\"],[\"schema_name\",\"models\"]],\"\"]",
+  "response": "{\"functions\":[],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/functions\",[[\"catalog_name\",\"sales\"],[\"max_results\",\"2\"],[\"schema_name\",\"marts\"]],\"\"]",
+  "response": "{\"functions\":[{\"name\":\"cents_to_dollars\",\"catalog_name\":\"sales\",\"schema_name\":\"marts\",\"input_params\":{\"parameters\":[{\"name\":\"cents\",\"type_text\":\"bigint\",\"type_json\":\"{\\\"name\\\": \\\"cents\\\", \\\"type\\\": \\\"long\\\", \\\"nullable\\\": true, \\\"metadata\\\": {}}\",\"type_name\":\"LONG\",\"type_precision\":null,\"type_scale\":null,\"type_interval_type\":null,\"position\":0,\"parameter_mode\":null,\"parameter_type\":null,\"parameter_default\":null,\"comment\":\"Amount in cents\"}]},\"data_type\":\"DECIMAL\",\"full_data_type\":\"DECIMAL(18,2)\",\"return_params\":null,\"routine_body\":\"SQL\",\"routine_definition\":\"CAST(cents / 100.0 AS DECIMAL(18,2))\",\"routine_dependencies\":null,\"parameter_style\":\"S\",\"is_deterministic\":true,\"sql_data_access\":\"CONTAINS_SQL\",\"is_null_call\":true,\"security_type\":\"DEFINER\",\"specific_name\":\"cents_to_dollars\",\"comment\":\"Convert cents to dollars\",\"properties\":null,\"full_name\":\"sales.marts.cents_to_dollars\",\"owner\":\"admin\",\"created_at\":1794738299831,\"created_by\":\"admin\",\"updated_at\":1794738299831,\"updated_by\":\"admin\",\"function_id\":\"56a70d33-d0cc-470a-bfe4-702602f88141\",\"external_language\":null}],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/functions\",[[\"catalog_name\",\"sales\"],[\"max_results\",\"2\"],[\"schema_name\",\"raw\"]],\"\"]",
+  "response": "{\"functions\":[],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/functions\",[[\"catalog_name\",\"unity\"],[\"max_results\",\"2\"],[\"page_token\",\"sum\"],[\"schema_name\",\"default\"]],\"\"]",
+  "response": "{\"functions\":[],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/functions\",[[\"catalog_name\",\"unity\"],[\"max_results\",\"2\"],[\"schema_name\",\"default\"]],\"\"]",
+  "response": "{\"functions\":[{\"name\":\"lowercase\",\"catalog_name\":\"unity\",\"schema_name\":\"default\",\"input_params\":{\"parameters\":[{\"name\":\"s\",\"type_text\":\"string\",\"type_json\":\"{\\\"name\\\":\\\"s\\\",\\\"type\\\":\\\"string\\\",\\\"nullable\\\":false,\\\"metadata\\\":{}}\",\"type_name\":\"STRING\",\"type_precision\":null,\"type_scale\":null,\"type_interval_type\":null,\"position\":0,\"parameter_mode\":\"IN\",\"parameter_type\":\"PARAM\",\"parameter_default\":null,\"comment\":null}]},\"data_type\":\"STRING\",\"full_data_type\":\"STRING\",\"return_params\":null,\"routine_body\":\"EXTERNAL\",\"routine_definition\":\"g = s.lower()\\\\nreturn g\",\"routine_dependencies\":null,\"parameter_style\":\"S\",\"is_deterministic\":true,\"sql_data_access\":\"NO_SQL\",\"is_null_call\":false,\"security_type\":\"DEFINER\",\"specific_name\":\"lowercase\",\"comment\":\"Converts a string to lowercase.\",\"properties\":null,\"full_name\":\"unity.default.lowercase\",\"owner\":null,\"created_at\":1721234405640,\"created_by\":null,\"updated_at\":null,\"updated_by\":null,\"function_id\":\"ebb706d6-7ba0-4b2e-8d9c-716d13fd57f8\",\"external_language\":\"python\"},{\"name\":\"sum\",\"catalog_name\":\"unity\",\"schema_name\":\"default\",\"input_params\":{\"parameters\":[{\"name\":\"x\",\"type_text\":\"int\",\"type_json\":\"{\\\"name\\\":\\\"x\\\",\\\"type\\\":\\\"integer\\\",\\\"nullable\\\":false,\\\"metadata\\\":{}}\",\"type_name\":\"INT\",\"type_precision\":null,\"type_scale\":null,\"type_interval_type\":null,\"position\":0,\"parameter_mode\":\"IN\",\"parameter_type\":\"PARAM\",\"parameter_default\":null,\"comment\":null},{\"name\":\"y\",\"type_text\":\"int\",\"type_json\":\"{\\\"name\\\":\\\"y\\\",\\\"type\\\":\\\"integer\\\",\\\"nullable\\\":false,\\\"metadata\\\":{}}\",\"type_name\":\"INT\",\"type_precision\":null,\"type_scale\":null,\"type_interval_type\":null,\"position\":1,\"parameter_mode\":\"IN\",\"parameter_type\":\"PARAM\",\"parameter_default\":null,\"comment\":null},{\"name\":\"z\",\"type_text\":\"int\",\"type_json\":\"{\\\"name\\\":\\\"z\\\",\\\"type\\\":\\\"integer\\\",\\\"nullable\\\":false,\\\"metadata\\\":{}}\",\"type_name\":\"INT\",\"type_precision\":null,\"type_scale\":null,\"type_interval_type\":null,\"position\":2,\"parameter_mode\":\"IN\",\"parameter_type\":\"PARAM\",\"parameter_default\":null,\"comment\":null}]},\"data_type\":\"INT\",\"full_data_type\":\"INT\",\"return_params\":null,\"routine_body\":\"EXTERNAL\",\"routine_definition\":\"t = x + y + z\\\\nreturn t\",\"routine_dependencies\":null,\"parameter_style\":\"S\",\"is_deterministic\":true,\"sql_data_access\":\"NO_SQL\",\"is_null_call\":false,\"security_type\":\"DEFINER\",\"specific_name\":\"sum\",\"comment\":\"Adds two numbers.\",\"properties\":null,\"full_name\":\"unity.default.sum\",\"owner\":null,\"created_at\":1721234405630,\"created_by\":null,\"updated_at\":null,\"updated_by\":null,\"function_id\":\"7ad91857-fc34-4417-9694-1738642f874c\",\"external_language\":\"python\"}],\"next_page_token\":\"sum\"}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/metastore_summary\",[],\"\"]",
+  "response": "{\"metastore_id\":\"967cd047-969a-4895-a659-3420a9a53c6d\"}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/models\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"registered_models\":[{\"name\":\"churn\",\"catalog_name\":\"ml\",\"schema_name\":\"models\",\"storage_location\":\"file:///home/unitycatalog/etc/data/managed/__unitystorage/models/b54b5454-c862-443e-9937-98d9d4b9aef3\",\"full_name\":\"ml.models.churn\",\"comment\":\"Customer churn classifier\",\"owner\":\"admin\",\"created_at\":1794738299859,\"created_by\":\"admin\",\"updated_at\":1794738299859,\"updated_by\":\"admin\",\"id\":\"b54b5454-c862-443e-9937-98d9d4b9aef3\"}],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/models/ml.models.churn/versions\",[[\"max_results\",\"2\"],[\"page_token\",\"2\"]],\"\"]",
+  "response": "{\"model_versions\":[],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/models/ml.models.churn/versions\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"model_versions\":[{\"model_name\":\"churn\",\"catalog_name\":\"ml\",\"schema_name\":\"models\",\"version\":1,\"source\":\"s3://acme-ml/run-001\",\"run_id\":\"run-001\",\"status\":\"READY\",\"storage_location\":\"file:///home/unitycatalog/etc/data/managed/__unitystorage/models/b54b5454-c862-443e-9937-98d9d4b9aef3/versions/d88a608f-9a0f-40c4-8315-0f89ae8d9123\",\"comment\":\"Trained by run-001\",\"created_at\":1794738299887,\"created_by\":\"admin\",\"updated_at\":1794738299916,\"updated_by\":\"admin\",\"id\":\"d88a608f-9a0f-40c4-8315-0f89ae8d9123\"},{\"model_name\":\"churn\",\"catalog_name\":\"ml\",\"schema_name\":\"models\",\"version\":2,\"source\":\"s3://acme-ml/run-002\",\"run_id\":\"run-002\",\"status\":\"PENDING_REGISTRATION\",\"storage_location\":\"file:///home/unitycatalog/etc/data/managed/__unitystorage/models/b54b5454-c862-443e-9937-98d9d4b9aef3/versions/8fb36d47-4e82-430e-819d-48e02b6ea874\",\"comment\":\"Trained by run-002\",\"created_at\":1794738299930,\"created_by\":\"admin\",\"updated_at\":1794738299930,\"updated_by\":\"admin\",\"id\":\"8fb36d47-4e82-430e-819d-48e02b6ea874\"}],\"next_page_token\":\"2\"}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/catalog/ml\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/catalog/sales\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[{\"principal\":\"alice@example.com\",\"privileges\":[\"USE CATALOG\"]},{\"principal\":\"bob@example.com\",\"privileges\":[\"USE CATALOG\",\"CREATE SCHEMA\"]}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/catalog/unity\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/credential/lake_role\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/external_location/lake_raw\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/function/sales.marts.cents_to_dollars\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[{\"principal\":\"alice@example.com\",\"privileges\":[\"EXECUTE\"]}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/function/unity.default.lowercase\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/function/unity.default.sum\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/metastore/967cd047-969a-4895-a659-3420a9a53c6d\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/registered_model/ml.models.churn\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[{\"principal\":\"alice@example.com\",\"privileges\":[\"EXECUTE\"]}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/schema/ml.models\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/schema/sales.marts\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/schema/sales.raw\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[{\"principal\":\"bob@example.com\",\"privileges\":[\"USE SCHEMA\",\"CREATE TABLE\"]}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/schema/unity.default\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/table/sales.marts.daily_revenue\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/table/sales.raw.customers\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/table/sales.raw.orders\",[[\"principal\",\"bob@example.com\"]],\"\"]",
+  "response": "{\"privilege_assignments\":[{\"principal\":\"alice@example.com\",\"privileges\":[\"SELECT\"]},{\"principal\":\"bob@example.com\",\"privileges\":[\"SELECT\",\"MODIFY\"]}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/table/sales.raw.orders\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[{\"principal\":\"alice@example.com\",\"privileges\":[\"SELECT\"]},{\"principal\":\"bob@example.com\",\"privileges\":[\"SELECT\",\"MODIFY\"]}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/table/unity.default.marksheet\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/table/unity.default.marksheet_uniform\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/table/unity.default.numbers\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/table/unity.default.user_countries\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/volume/sales.raw.landing\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[{\"principal\":\"bob@example.com\",\"privileges\":[\"READ VOLUME\"]}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/volume/unity.default.json_files\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/permissions/volume/unity.default.txt_files\",[],\"\"]",
+  "response": "{\"privilege_assignments\":[]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/recipients\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"error_code\":\"INTERNAL\",\"details\":[{\"reason\":\"INTERNAL\",\"@type\":\"type.googleapis.com/google.rpc.ErrorInfo\"}],\"message\":\"Couldn't unwrap service.\"}",
+  "status": 500
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/schemas\",[[\"catalog_name\",\"ml\"],[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"schemas\":[{\"name\":\"models\",\"catalog_name\":\"ml\",\"comment\":\"Registered models\",\"properties\":{},\"full_name\":\"ml.models\",\"owner\":\"admin\",\"created_at\":1794738299529,\"created_by\":\"admin\",\"updated_at\":1794738299529,\"updated_by\":\"admin\",\"schema_id\":\"6920e42a-e608-4984-b4c6-6fc3f24c6f1d\",\"storage_root\":null,\"storage_location\":null}],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/schemas\",[[\"catalog_name\",\"sales\"],[\"max_results\",\"2\"],[\"page_token\",\"raw\"]],\"\"]",
+  "response": "{\"schemas\":[],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/schemas\",[[\"catalog_name\",\"sales\"],[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"schemas\":[{\"name\":\"marts\",\"catalog_name\":\"sales\",\"comment\":\"Curated marts\",\"properties\":{},\"full_name\":\"sales.marts\",\"owner\":\"admin\",\"created_at\":1794738299508,\"created_by\":\"admin\",\"updated_at\":1794738299508,\"updated_by\":\"admin\",\"schema_id\":\"162f1f99-46c5-4696-8b5f-d532b037ed85\",\"storage_root\":null,\"storage_location\":null},{\"name\":\"raw\",\"catalog_name\":\"sales\",\"comment\":\"Landed source data\",\"properties\":{\"source\":\"erp\"},\"full_name\":\"sales.raw\",\"owner\":\"admin\",\"created_at\":1794738299474,\"created_by\":\"admin\",\"updated_at\":1794738299474,\"updated_by\":\"admin\",\"schema_id\":\"2b327774-322e-4f12-a5f3-f9b536c10156\",\"storage_root\":null,\"storage_location\":null}],\"next_page_token\":\"raw\"}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/schemas\",[[\"catalog_name\",\"unity\"],[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"schemas\":[{\"name\":\"default\",\"catalog_name\":\"unity\",\"comment\":\"Default schema\",\"properties\":{},\"full_name\":\"unity.default\",\"owner\":null,\"created_at\":1721241605571,\"created_by\":null,\"updated_at\":null,\"updated_by\":null,\"schema_id\":\"b08dfd57-a939-46cf-b102-9b906b884fae\",\"storage_root\":null,\"storage_location\":null}],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/shares\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"error_code\":\"INTERNAL\",\"details\":[{\"reason\":\"INTERNAL\",\"@type\":\"type.googleapis.com/google.rpc.ErrorInfo\"}],\"message\":\"Couldn't unwrap service.\"}",
+  "status": 500
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/storage-credentials\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"error_code\":\"INTERNAL\",\"details\":[{\"reason\":\"INTERNAL\",\"@type\":\"type.googleapis.com/google.rpc.ErrorInfo\"}],\"message\":\"Couldn't unwrap service.\"}",
+  "status": 500
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/tables\",[[\"catalog_name\",\"ml\"],[\"max_results\",\"2\"],[\"omit_columns\",\"true\"],[\"omit_properties\",\"true\"],[\"schema_name\",\"models\"]],\"\"]",
+  "response": "{\"tables\":[],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/tables\",[[\"catalog_name\",\"sales\"],[\"max_results\",\"2\"],[\"omit_columns\",\"true\"],[\"omit_properties\",\"true\"],[\"page_token\",\"orders\"],[\"schema_name\",\"raw\"]],\"\"]",
+  "response": "{\"tables\":[],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/tables\",[[\"catalog_name\",\"sales\"],[\"max_results\",\"2\"],[\"omit_columns\",\"true\"],[\"omit_properties\",\"true\"],[\"schema_name\",\"marts\"]],\"\"]",
+  "response": "{\"tables\":[{\"name\":\"daily_revenue\",\"catalog_name\":\"sales\",\"schema_name\":\"marts\",\"table_type\":\"VIEW\",\"data_source_format\":null,\"columns\":[],\"storage_location\":null,\"comment\":\"Revenue per day\",\"properties\":{},\"owner\":\"admin\",\"created_at\":1794738299739,\"created_by\":\"admin\",\"updated_at\":1794738299739,\"updated_by\":\"admin\",\"table_id\":\"a05c6498-d1d6-432f-a974-a3d879c2cd0a\",\"view_definition\":\"SELECT order_date, sum(amount) AS revenue FROM sales.raw.orders GROUP BY order_date\",\"view_dependencies\":{\"dependencies\":[]}}],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/tables\",[[\"catalog_name\",\"sales\"],[\"max_results\",\"2\"],[\"omit_columns\",\"true\"],[\"omit_properties\",\"true\"],[\"schema_name\",\"raw\"]],\"\"]",
+  "response": "{\"tables\":[{\"name\":\"customers\",\"catalog_name\":\"sales\",\"schema_name\":\"raw\",\"table_type\":\"EXTERNAL\",\"data_source_format\":\"PARQUET\",\"columns\":[],\"storage_location\":\"s3://acme-lake/raw/customers\",\"comment\":\"Customer master\",\"properties\":{},\"owner\":\"admin\",\"created_at\":1794738299704,\"created_by\":\"admin\",\"updated_at\":1794738299704,\"updated_by\":\"admin\",\"table_id\":\"2c58abb6-7ee6-4dd8-9555-8e38f7523040\",\"view_definition\":null,\"view_dependencies\":null},{\"name\":\"orders\",\"catalog_name\":\"sales\",\"schema_name\":\"raw\",\"table_type\":\"EXTERNAL\",\"data_source_format\":\"DELTA\",\"columns\":[],\"storage_location\":\"s3://acme-lake/raw/orders\",\"comment\":\"Orders landed nightly from the ERP\",\"properties\":{},\"owner\":\"admin\",\"created_at\":1794738299609,\"created_by\":\"admin\",\"updated_at\":1794738299609,\"updated_by\":\"admin\",\"table_id\":\"437f5c7d-324b-4b65-9fce-568ebeaebf5f\",\"view_definition\":null,\"view_dependencies\":null}],\"next_page_token\":\"orders\"}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/tables\",[[\"catalog_name\",\"unity\"],[\"max_results\",\"2\"],[\"omit_columns\",\"true\"],[\"omit_properties\",\"true\"],[\"page_token\",\"marksheet_uniform\"],[\"schema_name\",\"default\"]],\"\"]",
+  "response": "{\"tables\":[{\"name\":\"numbers\",\"catalog_name\":\"unity\",\"schema_name\":\"default\",\"table_type\":\"EXTERNAL\",\"data_source_format\":\"DELTA\",\"columns\":[],\"storage_location\":\"file:///home/unitycatalog/etc/data/external/unity/default/tables/numbers\",\"comment\":\"External table\",\"properties\":{},\"owner\":null,\"created_at\":1721241605617,\"created_by\":null,\"updated_at\":1721241605617,\"updated_by\":null,\"table_id\":\"32025924-be53-4d67-ac39-501a86046c01\",\"view_definition\":null,\"view_dependencies\":null},{\"name\":\"user_countries\",\"catalog_name\":\"unity\",\"schema_name\":\"default\",\"table_type\":\"EXTERNAL\",\"data_source_format\":\"DELTA\",\"columns\":[],\"storage_location\":\"file:///home/unitycatalog/etc/data/external/unity/default/tables/user_countries\",\"comment\":\"Partitioned table\",\"properties\":{},\"owner\":null,\"created_at\":1721241605622,\"created_by\":null,\"updated_at\":1721241605622,\"updated_by\":null,\"table_id\":\"26ed93b5-9a18-4726-8ae8-c89dfcfea069\",\"view_definition\":null,\"view_dependencies\":null}],\"next_page_token\":\"user_countries\"}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/tables\",[[\"catalog_name\",\"unity\"],[\"max_results\",\"2\"],[\"omit_columns\",\"true\"],[\"omit_properties\",\"true\"],[\"page_token\",\"user_countries\"],[\"schema_name\",\"default\"]],\"\"]",
+  "response": "{\"tables\":[],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/tables\",[[\"catalog_name\",\"unity\"],[\"max_results\",\"2\"],[\"omit_columns\",\"true\"],[\"omit_properties\",\"true\"],[\"schema_name\",\"default\"]],\"\"]",
+  "response": "{\"tables\":[{\"name\":\"marksheet\",\"catalog_name\":\"unity\",\"schema_name\":\"default\",\"table_type\":\"MANAGED\",\"data_source_format\":\"DELTA\",\"columns\":[],\"storage_location\":\"file:///home/unitycatalog/etc/data/managed/unity/default/tables/marksheet\",\"comment\":\"Managed table\",\"properties\":{},\"owner\":null,\"created_at\":1721241605595,\"created_by\":null,\"updated_at\":1721241605595,\"updated_by\":null,\"table_id\":\"c389adfa-5c8f-497b-8f70-26c2cca4976d\",\"view_definition\":null,\"view_dependencies\":null},{\"name\":\"marksheet_uniform\",\"catalog_name\":\"unity\",\"schema_name\":\"default\",\"table_type\":\"EXTERNAL\",\"data_source_format\":\"DELTA\",\"columns\":[],\"storage_location\":\"file:///tmp/marksheet_uniform\",\"comment\":\"Uniform table\",\"properties\":{},\"owner\":null,\"created_at\":1721241605611,\"created_by\":null,\"updated_at\":1721241605611,\"updated_by\":null,\"table_id\":\"9a73eb46-adf0-4457-9bd8-9ab491865e0d\",\"view_definition\":null,\"view_dependencies\":null}],\"next_page_token\":\"marksheet_uniform\"}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/tables\",[[\"catalog_name\",\"unity\"],[\"max_results\",\"2\"],[\"omit_properties\",\"true\"],[\"page_token\",\"marksheet_uniform\"],[\"schema_name\",\"default\"]],\"\"]",
+  "response": "{\"tables\":[{\"name\":\"numbers\",\"catalog_name\":\"unity\",\"schema_name\":\"default\",\"table_type\":\"EXTERNAL\",\"data_source_format\":\"DELTA\",\"columns\":[{\"name\":\"as_int\",\"type_text\":\"int\",\"type_json\":\"{\\\"name\\\":\\\"as_int\\\",\\\"type\\\":\\\"integer\\\",\\\"nullable\\\":false,\\\"metadata\\\":{}}\",\"type_name\":\"INT\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":0,\"comment\":\"Int column\",\"nullable\":false,\"partition_index\":null},{\"name\":\"as_double\",\"type_text\":\"double\",\"type_json\":\"{\\\"name\\\":\\\"as_double\\\",\\\"type\\\":\\\"double\\\",\\\"nullable\\\":false,\\\"metadata\\\":{}}\",\"type_name\":\"DOUBLE\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":1,\"comment\":\"Double column\",\"nullable\":false,\"partition_index\":null}],\"storage_location\":\"file:///home/unitycatalog/etc/data/external/unity/default/tables/numbers\",\"comment\":\"External table\",\"properties\":{},\"owner\":null,\"created_at\":1721241605617,\"created_by\":null,\"updated_at\":1721241605617,\"updated_by\":null,\"table_id\":\"32025924-be53-4d67-ac39-501a86046c01\",\"view_definition\":null,\"view_dependencies\":null},{\"name\":\"user_countries\",\"catalog_name\":\"unity\",\"schema_name\":\"default\",\"table_type\":\"EXTERNAL\",\"data_source_format\":\"DELTA\",\"columns\":[{\"name\":\"first_name\",\"type_text\":\"string\",\"type_json\":\"{\\\"name\\\":\\\"first_name\\\",\\\"type\\\":\\\"string\\\",\\\"nullable\\\":false,\\\"metadata\\\":{}}\",\"type_name\":\"STRING\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":0,\"comment\":\"string column\",\"nullable\":false,\"partition_index\":null},{\"name\":\"age\",\"type_text\":\"bigint\",\"type_json\":\"{\\\"name\\\":\\\"age\\\",\\\"type\\\":\\\"long\\\",\\\"nullable\\\":false,\\\"metadata\\\":{}}\",\"type_name\":\"LONG\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":1,\"comment\":\"long column\",\"nullable\":false,\"partition_index\":null},{\"name\":\"country\",\"type_text\":\"string\",\"type_json\":\"{\\\"name\\\":\\\"country\\\",\\\"type\\\":\\\"string\\\",\\\"nullable\\\":false,\\\"metadata\\\":{}}\",\"type_name\":\"STRING\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":2,\"comment\":\"partition column\",\"nullable\":false,\"partition_index\":0}],\"storage_location\":\"file:///home/unitycatalog/etc/data/external/unity/default/tables/user_countries\",\"comment\":\"Partitioned table\",\"properties\":{},\"owner\":null,\"created_at\":1721241605622,\"created_by\":null,\"updated_at\":1721241605622,\"updated_by\":null,\"table_id\":\"26ed93b5-9a18-4726-8ae8-c89dfcfea069\",\"view_definition\":null,\"view_dependencies\":null}],\"next_page_token\":\"user_countries\"}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/tables\",[[\"catalog_name\",\"unity\"],[\"max_results\",\"2\"],[\"omit_properties\",\"true\"],[\"page_token\",\"user_countries\"],[\"schema_name\",\"default\"]],\"\"]",
+  "response": "{\"tables\":[],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/tables\",[[\"catalog_name\",\"unity\"],[\"max_results\",\"2\"],[\"omit_properties\",\"true\"],[\"schema_name\",\"default\"]],\"\"]",
+  "response": "{\"tables\":[{\"name\":\"marksheet\",\"catalog_name\":\"unity\",\"schema_name\":\"default\",\"table_type\":\"MANAGED\",\"data_source_format\":\"DELTA\",\"columns\":[{\"name\":\"id\",\"type_text\":\"int\",\"type_json\":\"{\\\"name\\\":\\\"id\\\",\\\"type\\\":\\\"integer\\\",\\\"nullable\\\":false,\\\"metadata\\\":{}}\",\"type_name\":\"INT\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":0,\"comment\":\"ID primary key\",\"nullable\":false,\"partition_index\":null},{\"name\":\"name\",\"type_text\":\"string\",\"type_json\":\"{\\\"name\\\":\\\"name\\\",\\\"type\\\":\\\"string\\\",\\\"nullable\\\":false,\\\"metadata\\\":{}}\",\"type_name\":\"STRING\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":1,\"comment\":\"Name of the entity\",\"nullable\":false,\"partition_index\":null},{\"name\":\"marks\",\"type_text\":\"int\",\"type_json\":\"{\\\"name\\\":\\\"marks\\\",\\\"type\\\":\\\"integer\\\",\\\"nullable\\\":true,\\\"metadata\\\":{}}\",\"type_name\":\"INT\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":2,\"comment\":\"Marks of the entity\",\"nullable\":true,\"partition_index\":null}],\"storage_location\":\"file:///home/unitycatalog/etc/data/managed/unity/default/tables/marksheet\",\"comment\":\"Managed table\",\"properties\":{},\"owner\":null,\"created_at\":1721241605595,\"created_by\":null,\"updated_at\":1721241605595,\"updated_by\":null,\"table_id\":\"c389adfa-5c8f-497b-8f70-26c2cca4976d\",\"view_definition\":null,\"view_dependencies\":null},{\"name\":\"marksheet_uniform\",\"catalog_name\":\"unity\",\"schema_name\":\"default\",\"table_type\":\"EXTERNAL\",\"data_source_format\":\"DELTA\",\"columns\":[{\"name\":\"id\",\"type_text\":\"int\",\"type_json\":\"{\\\"name\\\":\\\"id\\\",\\\"type\\\":\\\"integer\\\",\\\"nullable\\\":false,\\\"metadata\\\":{}}\",\"type_name\":\"INT\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":0,\"comment\":\"ID primary key\",\"nullable\":false,\"partition_index\":null},{\"name\":\"name\",\"type_text\":\"string\",\"type_json\":\"{\\\"name\\\":\\\"name\\\",\\\"type\\\":\\\"string\\\",\\\"nullable\\\":false,\\\"metadata\\\":{}}\",\"type_name\":\"STRING\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":1,\"comment\":\"Name of the entity\",\"nullable\":false,\"partition_index\":null},{\"name\":\"marks\",\"type_text\":\"int\",\"type_json\":\"{\\\"name\\\":\\\"marks\\\",\\\"type\\\":\\\"integer\\\",\\\"nullable\\\":true,\\\"metadata\\\":{}}\",\"type_name\":\"INT\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":2,\"comment\":\"Marks of the entity\",\"nullable\":true,\"partition_index\":null}],\"storage_location\":\"file:///tmp/marksheet_uniform\",\"comment\":\"Uniform table\",\"properties\":{},\"owner\":null,\"created_at\":1721241605611,\"created_by\":null,\"updated_at\":1721241605611,\"updated_by\":null,\"table_id\":\"9a73eb46-adf0-4457-9bd8-9ab491865e0d\",\"view_definition\":null,\"view_dependencies\":null}],\"next_page_token\":\"marksheet_uniform\"}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/tables/sales.marts.daily_revenue\",[],\"\"]",
+  "response": "{\"name\":\"daily_revenue\",\"catalog_name\":\"sales\",\"schema_name\":\"marts\",\"table_type\":\"VIEW\",\"data_source_format\":null,\"columns\":[{\"name\":\"order_date\",\"type_text\":\"date\",\"type_json\":\"{\\\"name\\\": \\\"order_date\\\", \\\"type\\\": \\\"date\\\", \\\"nullable\\\": true, \\\"metadata\\\": {}}\",\"type_name\":\"DATE\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":0,\"comment\":\"Day\",\"nullable\":true,\"partition_index\":null},{\"name\":\"revenue\",\"type_text\":\"decimal(28,2)\",\"type_json\":\"{\\\"name\\\": \\\"revenue\\\", \\\"type\\\": \\\"decimal(28,2)\\\", \\\"nullable\\\": true, \\\"metadata\\\": {}}\",\"type_name\":\"DECIMAL\",\"type_precision\":28,\"type_scale\":2,\"type_interval_type\":null,\"position\":1,\"comment\":\"Revenue that day\",\"nullable\":true,\"partition_index\":null}],\"storage_location\":null,\"comment\":\"Revenue per day\",\"properties\":{},\"owner\":\"admin\",\"created_at\":1794738299739,\"created_by\":\"admin\",\"updated_at\":1794738299739,\"updated_by\":\"admin\",\"table_id\":\"a05c6498-d1d6-432f-a974-a3d879c2cd0a\",\"view_definition\":\"SELECT order_date, sum(amount) AS revenue FROM sales.raw.orders GROUP BY order_date\",\"view_dependencies\":{\"dependencies\":[]}}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/tables/sales.raw.customers\",[],\"\"]",
+  "response": "{\"name\":\"customers\",\"catalog_name\":\"sales\",\"schema_name\":\"raw\",\"table_type\":\"EXTERNAL\",\"data_source_format\":\"PARQUET\",\"columns\":[{\"name\":\"customer_id\",\"type_text\":\"bigint\",\"type_json\":\"{\\\"name\\\": \\\"customer_id\\\", \\\"type\\\": \\\"long\\\", \\\"nullable\\\": false, \\\"metadata\\\": {}}\",\"type_name\":\"LONG\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":0,\"comment\":\"Customer key\",\"nullable\":false,\"partition_index\":null},{\"name\":\"email\",\"type_text\":\"string\",\"type_json\":\"{\\\"name\\\": \\\"email\\\", \\\"type\\\": \\\"string\\\", \\\"nullable\\\": true, \\\"metadata\\\": {}}\",\"type_name\":\"STRING\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":1,\"comment\":\"Contact email (PII)\",\"nullable\":true,\"partition_index\":null},{\"name\":\"region\",\"type_text\":\"string\",\"type_json\":\"{\\\"name\\\": \\\"region\\\", \\\"type\\\": \\\"string\\\", \\\"nullable\\\": true, \\\"metadata\\\": {}}\",\"type_name\":\"STRING\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":2,\"comment\":\"Sales region\",\"nullable\":true,\"partition_index\":null}],\"storage_location\":\"s3://acme-lake/raw/customers\",\"comment\":\"Customer master\",\"properties\":{},\"owner\":\"admin\",\"created_at\":1794738299704,\"created_by\":\"admin\",\"updated_at\":1794738299704,\"updated_by\":\"admin\",\"table_id\":\"2c58abb6-7ee6-4dd8-9555-8e38f7523040\",\"view_definition\":null,\"view_dependencies\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/tables/sales.raw.orders\",[],\"\"]",
+  "response": "{\"name\":\"orders\",\"catalog_name\":\"sales\",\"schema_name\":\"raw\",\"table_type\":\"EXTERNAL\",\"data_source_format\":\"DELTA\",\"columns\":[{\"name\":\"order_id\",\"type_text\":\"bigint\",\"type_json\":\"{\\\"name\\\": \\\"order_id\\\", \\\"type\\\": \\\"long\\\", \\\"nullable\\\": false, \\\"metadata\\\": {}}\",\"type_name\":\"LONG\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":0,\"comment\":\"Order key\",\"nullable\":false,\"partition_index\":null},{\"name\":\"customer_id\",\"type_text\":\"bigint\",\"type_json\":\"{\\\"name\\\": \\\"customer_id\\\", \\\"type\\\": \\\"long\\\", \\\"nullable\\\": true, \\\"metadata\\\": {}}\",\"type_name\":\"LONG\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":1,\"comment\":\"Customer key\",\"nullable\":true,\"partition_index\":null},{\"name\":\"amount\",\"type_text\":\"decimal(18,2)\",\"type_json\":\"{\\\"name\\\": \\\"amount\\\", \\\"type\\\": \\\"decimal(18,2)\\\", \\\"nullable\\\": true, \\\"metadata\\\": {}}\",\"type_name\":\"DECIMAL\",\"type_precision\":18,\"type_scale\":2,\"type_interval_type\":null,\"position\":2,\"comment\":\"Order total\",\"nullable\":true,\"partition_index\":null},{\"name\":\"ordered_at\",\"type_text\":\"timestamp\",\"type_json\":\"{\\\"name\\\": \\\"ordered_at\\\", \\\"type\\\": \\\"timestamp\\\", \\\"nullable\\\": true, \\\"metadata\\\": {}}\",\"type_name\":\"TIMESTAMP\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":3,\"comment\":\"When the order was placed\",\"nullable\":true,\"partition_index\":null},{\"name\":\"tags\",\"type_text\":\"array<string>\",\"type_json\":\"{\\\"name\\\": \\\"tags\\\", \\\"type\\\": {\\\"type\\\": \\\"array\\\", \\\"elementType\\\": \\\"string\\\", \\\"containsNull\\\": true}, \\\"nullable\\\": true, \\\"metadata\\\": {}}\",\"type_name\":\"ARRAY\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":4,\"comment\":\"Free-form labels\",\"nullable\":true,\"partition_index\":null},{\"name\":\"order_date\",\"type_text\":\"date\",\"type_json\":\"{\\\"name\\\": \\\"order_date\\\", \\\"type\\\": \\\"date\\\", \\\"nullable\\\": false, \\\"metadata\\\": {}}\",\"type_name\":\"DATE\",\"type_precision\":0,\"type_scale\":0,\"type_interval_type\":null,\"position\":5,\"comment\":\"Partition date\",\"nullable\":false,\"partition_index\":0}],\"storage_location\":\"s3://acme-lake/raw/orders\",\"comment\":\"Orders landed nightly from the ERP\",\"properties\":{\"delta.appendOnly\":\"true\",\"pii\":\"false\"},\"owner\":\"admin\",\"created_at\":1794738299609,\"created_by\":\"admin\",\"updated_at\":1794738299609,\"updated_by\":\"admin\",\"table_id\":\"437f5c7d-324b-4b65-9fce-568ebeaebf5f\",\"view_definition\":null,\"view_dependencies\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/volumes\",[[\"catalog_name\",\"ml\"],[\"max_results\",\"2\"],[\"schema_name\",\"models\"]],\"\"]",
+  "response": "{\"volumes\":[],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/volumes\",[[\"catalog_name\",\"sales\"],[\"max_results\",\"2\"],[\"schema_name\",\"marts\"]],\"\"]",
+  "response": "{\"volumes\":[],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/volumes\",[[\"catalog_name\",\"sales\"],[\"max_results\",\"2\"],[\"schema_name\",\"raw\"]],\"\"]",
+  "response": "{\"volumes\":[{\"catalog_name\":\"sales\",\"schema_name\":\"raw\",\"name\":\"landing\",\"comment\":\"Raw file drops\",\"owner\":\"admin\",\"created_at\":1794738299791,\"created_by\":\"admin\",\"updated_at\":1794738299791,\"updated_by\":\"admin\",\"volume_id\":\"b75d38e1-2452-4f77-92a6-9c13277f3cc3\",\"volume_type\":\"EXTERNAL\",\"storage_location\":\"s3://acme-lake/landing\",\"full_name\":\"sales.raw.landing\"}],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/volumes\",[[\"catalog_name\",\"unity\"],[\"max_results\",\"2\"],[\"page_token\",\"txt_files\"],[\"schema_name\",\"default\"]],\"\"]",
+  "response": "{\"volumes\":[],\"next_page_token\":null}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/volumes\",[[\"catalog_name\",\"unity\"],[\"max_results\",\"2\"],[\"schema_name\",\"default\"]],\"\"]",
+  "response": "{\"volumes\":[{\"catalog_name\":\"unity\",\"schema_name\":\"default\",\"name\":\"json_files\",\"comment\":null,\"owner\":null,\"created_at\":1721241605627,\"created_by\":null,\"updated_at\":1721241605627,\"updated_by\":null,\"volume_id\":\"d3f18882-eb1f-4cbb-bbc4-0347091224e8\",\"volume_type\":\"EXTERNAL\",\"storage_location\":\"file:///home/unitycatalog/etc/data/external/unity/default/volumes/json_files\",\"full_name\":\"unity.default.json_files\"},{\"catalog_name\":\"unity\",\"schema_name\":\"default\",\"name\":\"txt_files\",\"comment\":null,\"owner\":null,\"created_at\":1721241605627,\"created_by\":null,\"updated_at\":1721241605627,\"updated_by\":null,\"volume_id\":\"74695d77-d48b-4f8e-9894-54a3e110b1ae\",\"volume_type\":\"MANAGED\",\"storage_location\":\"file:///home/unitycatalog/etc/data/managed/unity/default/volumes/txt_files\",\"full_name\":\"unity.default.txt_files\"}],\"next_page_token\":\"txt_files\"}",
+  "status": 200
+ }
+]

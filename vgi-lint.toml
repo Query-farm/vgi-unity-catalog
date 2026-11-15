@@ -1,0 +1,41 @@
+# vgi-lint settings for this worker: https://github.com/Query-farm/vgi-lint-check
+# `make lint-explain`, `vgi-lint lint` in this directory, and CI's metadata job all
+# read this file. Look up a rule with `vgi-lint explain VGI123`; print the metadata tag
+# contract with `vgi-lint spec`.
+
+# The worker to attach, relative to this directory. Build it first with `make build`.
+location = ".venv/bin/vgi-unity-catalog-worker"
+
+# Fail on warnings while you build. Raise this to "info" before you publish the worker.
+fail_on = "info"
+
+# Waive a finding only with a kind and a reason, so the waiver can be audited:
+#   domain-exemption  permanent and legitimate for this worker
+#   deferred          a real defect you will fix; add expires = "YYYY-MM-DD"
+#   timing            slow or flaky because of the environment, not the metadata
+#   tooling-bug       the linter is wrong; report it upstream
+ignore = [
+  # { code = "VGI146", kind = "domain-exemption", reason = "every entry point needs a key" },
+]
+
+# Adopting the gate on a worker that already has findings? Record them once with
+#   vgi-lint lint --baseline vgi-lint-baseline --update-baseline
+# and uncomment the next line. Only new findings fail after that.
+# baseline = "vgi-lint-baseline"
+
+[per_object."unity_catalog.main.lineage_edges"]
+ignore = [{ code = "VGI807", kind = "domain-exemption", reason = "an edge has no id: the same table pair is reported once per direction query, and entity edges (notebook/job) can repeat with different via lists, so no column set is guaranteed unique" }]
+[per_object."unity_catalog.main.effective_grants"]
+ignore = [{ code = "VGI807", kind = "domain-exemption", reason = "a principal can hold the same privilege both directly and inherited from a parent; inherited_from_name is NULL for the direct one, so the natural key contains a nullable column and cannot be a primary key" }]
+[per_object."unity_catalog.main.tag_assignments"]
+ignore = [
+  { code = "VGI807", kind = "domain-exemption", reason = "the natural key (entity_type, entity_id, column_name, tag_key) includes column_name, which is NULL for every non-column assignment, so it cannot be a primary key" },
+  { code = "VGI809", kind = "domain-exemption", reason = "entity_id is polymorphic: it references catalogs, schemas, datasets or volumes depending on entity_type, which a single foreign key cannot express" },
+]
+[per_object."unity_catalog.main.metastores"]
+ignore = [{ code = "VGI808", kind = "domain-exemption", reason = "metastore_id is this table's own primary key (the other tables' metastore_id foreign keys point at it), not a reference" }]
+[per_object."unity_catalog.main.owners"]
+ignore = [
+  { code = "VGI808", kind = "domain-exemption", reason = "owner_id is the shared data-catalog vocabulary's name (vgi-datahub, vgi-openmetadata) for the owning principal, a user / group / service principal name; Unity Catalog exposes no principals table to reference" },
+  { code = "VGI809", kind = "domain-exemption", reason = "entity_id is polymorphic: it references the id of whichever table entity_type names (catalogs, schemas, datasets, volumes, ...), which a single foreign key cannot express" },
+]

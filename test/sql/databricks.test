@@ -1,0 +1,125 @@
+# name: test/sql/databricks.test
+# description: Databricks-only tables (and Databricks shapes) against the replay server's Databricks flavour
+# group: [unity_catalog]
+
+require vgi
+
+require-env UNITY_CATALOG_WORKER
+
+require-env UNITY_CATALOG_MOCK_DBX
+
+statement ok
+ATTACH 'unity_catalog' (TYPE vgi, LOCATION '{UNITY_CATALOG_WORKER}');
+
+# OAuth M2M: CLIENT_ID / CLIENT_SECRET are exchanged at <HOST>/oidc/v1/token for the bearer token.
+statement ok
+CREATE SECRET dbx (TYPE unity_catalog, HOST '{UNITY_CATALOG_MOCK_DBX}', CLIENT_ID 'test-client',
+                   CLIENT_SECRET 'test-secret', FLAVOR 'databricks', PAGE_SIZE 2);
+
+query TTTTTT
+SELECT name, cloud, region, owner, delta_sharing_scope, external_access_enabled FROM unity_catalog.main.metastores;
+----
+acme-us-east-1	aws	us-east-1	metastore-admins	INTERNAL_AND_EXTERNAL	true
+
+# Databricks platform and Catalog Explorer links
+query TTT
+SELECT id, platform, url = '{UNITY_CATALOG_MOCK_DBX}/explore/data/sales/raw/orders'
+FROM unity_catalog.main.datasets WHERE id = 'sales.raw.orders';
+----
+sales.raw.orders	databricks	true
+
+# tags: one entity-tag-assignments request per table, only because the column is selected
+query TT
+SELECT id, tags FROM unity_catalog.main.datasets WHERE catalog_name = 'sales' AND schema_name = 'raw' ORDER BY id;
+----
+sales.raw.customers	[pii, 'tier=silver']
+sales.raw.orders	['tier=gold']
+
+query TT
+SELECT column_name, tags FROM unity_catalog.main.columns WHERE dataset_id = 'sales.raw.customers' ORDER BY ordinal_position;
+----
+customer_id	[]
+email	['pii=email']
+region	[]
+
+# Storage credentials: kind only, never the role ARN or external id
+query TTTT
+SELECT name, credential_type, read_only, used_for_managed_storage FROM unity_catalog.main.storage_credentials ORDER BY name;
+----
+adls_mi	azure_managed_identity	true	NULL
+lake_role	aws_iam_role	false	true
+
+# Connection options: host / port kept, user / password / client_secret masked
+query TTTT
+SELECT name, connection_type, options['host'], options['password'] FROM unity_catalog.main.connections ORDER BY name;
+----
+pg_orders	POSTGRESQL	orders-db.internal	****
+sf_finance	SNOWFLAKE	acme.snowflakecomputing.com	NULL
+
+query TT
+SELECT options['user'], options['port'] FROM unity_catalog.main.connections WHERE name = 'pg_orders';
+----
+****	5432
+
+query TTT
+SELECT name, description, owner FROM unity_catalog.main.shares;
+----
+partner_sales	Daily revenue for partners	data-platform
+
+query TTTTT
+SELECT name, authentication_type, activated, cloud, region FROM unity_catalog.main.recipients ORDER BY name;
+----
+globex	TOKEN	false	NULL	NULL
+initech	DATABRICKS	true	azure	westeurope
+
+query TTTTT
+SELECT principal, principal_type, privilege, inherited_from_type, inherited_from_name FROM unity_catalog.main.effective_grants
+WHERE securable_type = 'table' AND securable_name = 'sales.raw.orders' ORDER BY ALL;
+----
+alice@example.com	user	SELECT	NULL	NULL
+alice@example.com	user	USE_CATALOG	catalog	sales
+analysts	group	SELECT	schema	sales.raw
+
+query TTT
+SELECT id, description, allowed_values FROM unity_catalog.main.tags ORDER BY id;
+----
+pii	Personally identifiable information	[email, phone]
+tier	Data product tier	[gold, silver]
+
+query TTTTT
+SELECT entity_type, entity_id, column_name, tag_key, tag_value FROM unity_catalog.main.tag_assignments
+WHERE entity_type IN ('table', 'column') AND entity_id = 'sales.raw.customers' ORDER BY ALL;
+----
+column	sales.raw.customers	email	pii	email
+table	sales.raw.customers	NULL	pii	NULL
+table	sales.raw.customers	NULL	tier	silver
+
+# Lineage: downstream_id = asks for that table only (upstream tables / jobs, and the dashboard that reads it)
+query TTTTTT
+SELECT level, upstream_id, upstream_type, upstream_column, downstream_id, downstream_column
+FROM unity_catalog.main.lineage_edges WHERE downstream_id = 'sales.marts.daily_revenue' ORDER BY ALL;
+----
+column	sales.raw.orders	dataset	amount	sales.marts.daily_revenue	revenue
+column	sales.raw.orders	dataset	order_date	sales.marts.daily_revenue	order_date
+dataset	sales.raw.orders	dataset	NULL	sales.marts.daily_revenue	NULL
+
+query TI
+SELECT via, epoch(lineage_timestamp)::BIGINT FROM unity_catalog.main.lineage_edges
+WHERE downstream_id = 'sales.marts.daily_revenue' AND level = 'dataset';
+----
+['job:1234567890/101']	1794636000
+
+# upstream_id = walks downstream from the table; level = 'column' skips nothing else
+query TTTT
+SELECT upstream_column, downstream_id, downstream_column, downstream_qualified_name FROM unity_catalog.main.lineage_edges
+WHERE level = 'column' AND upstream_id = 'sales.raw.orders' ORDER BY ALL;
+----
+amount	sales.marts.daily_revenue	revenue	sales.marts.daily_revenue
+order_date	sales.marts.daily_revenue	order_date	sales.marts.daily_revenue
+
+# Entity edges: the dashboard reading the view
+query TTT
+SELECT upstream_id, downstream_id, downstream_type FROM unity_catalog.main.lineage_edges
+WHERE upstream_id = 'sales.marts.daily_revenue';
+----
+sales.marts.daily_revenue	1234567890/01ef-revenue	dashboard

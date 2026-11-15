@@ -1,0 +1,140 @@
+[
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.0/lineage-tracking/column-lineage\",[[\"column_name\",\"amount\"],[\"table_name\",\"sales.raw.orders\"]],\"{\\\"column_name\\\":\\\"amount\\\",\\\"table_name\\\":\\\"sales.raw.orders\\\"}\"]",
+  "response": "{\"downstream_cols\": [{\"catalog_name\": \"sales\", \"lineage_timestamp\": \"2026-11-14 06:00:00.0\", \"name\": \"revenue\", \"schema_name\": \"marts\", \"table_name\": \"daily_revenue\", \"table_type\": \"TABLE\"}], \"upstream_cols\": []}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.0/lineage-tracking/column-lineage\",[[\"column_name\",\"customer_id\"],[\"table_name\",\"sales.raw.orders\"]],\"{\\\"column_name\\\":\\\"customer_id\\\",\\\"table_name\\\":\\\"sales.raw.orders\\\"}\"]",
+  "response": "{\"downstream_cols\": [], \"upstream_cols\": []}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.0/lineage-tracking/column-lineage\",[[\"column_name\",\"order_date\"],[\"table_name\",\"sales.marts.daily_revenue\"]],\"{\\\"column_name\\\":\\\"order_date\\\",\\\"table_name\\\":\\\"sales.marts.daily_revenue\\\"}\"]",
+  "response": "{\"downstream_cols\": [], \"upstream_cols\": [{\"catalog_name\": \"sales\", \"lineage_timestamp\": \"2026-11-14 06:00:00.0\", \"name\": \"order_date\", \"schema_name\": \"raw\", \"table_name\": \"orders\", \"table_type\": \"TABLE\"}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.0/lineage-tracking/column-lineage\",[[\"column_name\",\"order_date\"],[\"table_name\",\"sales.raw.orders\"]],\"{\\\"column_name\\\":\\\"order_date\\\",\\\"table_name\\\":\\\"sales.raw.orders\\\"}\"]",
+  "response": "{\"downstream_cols\": [{\"catalog_name\": \"sales\", \"lineage_timestamp\": \"2026-11-14 06:00:00.0\", \"name\": \"order_date\", \"schema_name\": \"marts\", \"table_name\": \"daily_revenue\", \"table_type\": \"TABLE\"}], \"upstream_cols\": []}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.0/lineage-tracking/column-lineage\",[[\"column_name\",\"order_id\"],[\"table_name\",\"sales.raw.orders\"]],\"{\\\"column_name\\\":\\\"order_id\\\",\\\"table_name\\\":\\\"sales.raw.orders\\\"}\"]",
+  "response": "{\"downstream_cols\": [], \"upstream_cols\": []}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.0/lineage-tracking/column-lineage\",[[\"column_name\",\"ordered_at\"],[\"table_name\",\"sales.raw.orders\"]],\"{\\\"column_name\\\":\\\"ordered_at\\\",\\\"table_name\\\":\\\"sales.raw.orders\\\"}\"]",
+  "response": "{\"downstream_cols\": [], \"upstream_cols\": []}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.0/lineage-tracking/column-lineage\",[[\"column_name\",\"revenue\"],[\"table_name\",\"sales.marts.daily_revenue\"]],\"{\\\"column_name\\\":\\\"revenue\\\",\\\"table_name\\\":\\\"sales.marts.daily_revenue\\\"}\"]",
+  "response": "{\"downstream_cols\": [], \"upstream_cols\": [{\"catalog_name\": \"sales\", \"lineage_timestamp\": \"2026-11-14 06:00:00.0\", \"name\": \"amount\", \"schema_name\": \"raw\", \"table_name\": \"orders\", \"table_type\": \"TABLE\"}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.0/lineage-tracking/column-lineage\",[[\"column_name\",\"tags\"],[\"table_name\",\"sales.raw.orders\"]],\"{\\\"column_name\\\":\\\"tags\\\",\\\"table_name\\\":\\\"sales.raw.orders\\\"}\"]",
+  "response": "{\"downstream_cols\": [], \"upstream_cols\": []}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.0/lineage-tracking/table-lineage\",[[\"include_entity_lineage\",\"true\"],[\"table_name\",\"sales.marts.daily_revenue\"]],\"{\\\"include_entity_lineage\\\":true,\\\"table_name\\\":\\\"sales.marts.daily_revenue\\\"}\"]",
+  "response": "{\"downstreams\": [{\"dashboardV3Infos\": [{\"dashboard_id\": \"01ef-revenue\", \"workspace_id\": 1234567890}]}], \"upstreams\": [{\"jobInfos\": [{\"job_id\": 101, \"job_run_id\": 9001, \"workspace_id\": 1234567890}], \"tableInfo\": {\"catalog_name\": \"sales\", \"lineage_timestamp\": \"2026-11-14 06:00:00.0\", \"name\": \"orders\", \"schema_name\": \"raw\", \"table_type\": \"TABLE\"}}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.0/lineage-tracking/table-lineage\",[[\"include_entity_lineage\",\"true\"],[\"table_name\",\"sales.raw.orders\"]],\"{\\\"include_entity_lineage\\\":true,\\\"table_name\\\":\\\"sales.raw.orders\\\"}\"]",
+  "response": "{\"downstreams\": [{\"jobInfos\": [{\"job_id\": 101, \"workspace_id\": 1234567890}], \"tableInfo\": {\"catalog_name\": \"sales\", \"lineage_timestamp\": \"2026-11-14 06:00:00.0\", \"name\": \"daily_revenue\", \"schema_name\": \"marts\", \"table_type\": \"VIEW\"}}], \"upstreams\": [{\"notebookInfos\": [{\"notebook_id\": 555, \"workspace_id\": 1234567890}]}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/tag-policies\",[[\"page_size\",\"2\"]],\"\"]",
+  "response": "{\"tag_policies\": [{\"create_time\": \"2026-11-01T10:00:00Z\", \"description\": \"Personally identifiable information\", \"id\": \"tp-1\", \"tag_key\": \"pii\", \"update_time\": \"2026-11-02T10:00:00Z\", \"values\": [{\"name\": \"email\"}, {\"name\": \"phone\"}]}, {\"create_time\": \"2026-11-01T10:00:00Z\", \"description\": \"Data product tier\", \"id\": \"tp-2\", \"tag_key\": \"tier\", \"values\": [{\"name\": \"gold\"}, {\"name\": \"silver\"}]}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/connections\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"connections\": [{\"comment\": \"ERP replica\", \"connection_id\": \"c0ffee00-0000-4000-8000-000000000001\", \"connection_type\": \"POSTGRESQL\", \"created_at\": 1794700000000, \"created_by\": \"admin@acme.com\", \"credential_type\": \"USERNAME_PASSWORD\", \"full_name\": \"pg_orders\", \"name\": \"pg_orders\", \"options\": {\"host\": \"orders-db.internal\", \"password\": \"hunter2\", \"port\": \"5432\", \"user\": \"svc_reader\"}, \"owner\": \"data-platform\", \"provisioning_info\": {\"state\": \"ACTIVE\"}, \"read_only\": true}, {\"connection_id\": \"c0ffee00-0000-4000-8000-000000000002\", \"connection_type\": \"SNOWFLAKE\", \"created_at\": 1794700005000, \"credential_type\": \"OAUTH\", \"name\": \"sf_finance\", \"options\": {\"client_secret\": \"s3cr3t\", \"host\": \"acme.snowflakecomputing.com\", \"sfWarehouse\": \"FIN_WH\"}, \"owner\": \"alice@example.com\", \"read_only\": true}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/effective-permissions/table/sales.raw.orders\",[],\"\"]",
+  "response": "{\"privilege_assignments\": [{\"principal\": \"alice@example.com\", \"privileges\": [{\"privilege\": \"SELECT\"}, {\"inherited_from_name\": \"sales\", \"inherited_from_type\": \"CATALOG\", \"privilege\": \"USE_CATALOG\"}]}, {\"principal\": \"analysts\", \"privileges\": [{\"inherited_from_name\": \"sales.raw\", \"inherited_from_type\": \"SCHEMA\", \"privilege\": \"SELECT\"}]}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/entity-tag-assignments/columns/sales.raw.customers.customer_id/tags\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"tag_assignments\": []}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/entity-tag-assignments/columns/sales.raw.customers.email/tags\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"tag_assignments\": [{\"entity_name\": \"sales.raw.customers.email\", \"entity_type\": \"columns\", \"source_type\": \"TAG_ASSIGNMENT_SOURCE_TYPE_USER\", \"tag_key\": \"pii\", \"tag_value\": \"email\", \"update_time\": \"2026-11-03T08:00:00Z\", \"updated_by\": \"alice@example.com\"}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/entity-tag-assignments/columns/sales.raw.customers.region/tags\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"tag_assignments\": []}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/entity-tag-assignments/tables/sales.marts.daily_revenue/tags\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"tag_assignments\": []}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/entity-tag-assignments/tables/sales.raw.customers/tags\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"tag_assignments\": [{\"entity_name\": \"sales.raw.customers\", \"entity_type\": \"tables\", \"source_type\": \"TAG_ASSIGNMENT_SOURCE_TYPE_USER\", \"tag_key\": \"pii\", \"update_time\": \"2026-11-03T08:00:00Z\", \"updated_by\": \"alice@example.com\"}, {\"entity_name\": \"sales.raw.customers\", \"entity_type\": \"tables\", \"source_type\": \"TAG_ASSIGNMENT_SOURCE_TYPE_USER\", \"tag_key\": \"tier\", \"tag_value\": \"silver\", \"update_time\": \"2026-11-03T08:00:00Z\", \"updated_by\": \"alice@example.com\"}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/entity-tag-assignments/tables/sales.raw.orders/tags\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"tag_assignments\": [{\"entity_name\": \"sales.raw.orders\", \"entity_type\": \"tables\", \"source_type\": \"TAG_ASSIGNMENT_SOURCE_TYPE_USER\", \"tag_key\": \"tier\", \"tag_value\": \"gold\", \"update_time\": \"2026-11-03T08:00:00Z\", \"updated_by\": \"alice@example.com\"}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/metastore_summary\",[],\"\"]",
+  "response": "{\"cloud\": \"aws\", \"created_at\": 1794700000000, \"created_by\": \"admin@acme.com\", \"delta_sharing_organization_name\": \"acme\", \"delta_sharing_scope\": \"INTERNAL_AND_EXTERNAL\", \"external_access_enabled\": true, \"global_metastore_id\": \"aws:us-east-1:11111111-2222-3333-4444-555555555555\", \"metastore_id\": \"11111111-2222-3333-4444-555555555555\", \"name\": \"acme-us-east-1\", \"owner\": \"metastore-admins\", \"privilege_model_version\": \"1.0\", \"region\": \"us-east-1\", \"storage_root\": \"s3://acme-uc-root/metastore\", \"updated_at\": 1794700001000, \"updated_by\": \"admin@acme.com\"}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/recipients\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"recipients\": [{\"activated\": false, \"activation_url\": \"https://acme.cloud.databricks.com/delta_sharing/retrieve_config.html?SECRET\", \"authentication_type\": \"TOKEN\", \"comment\": \"Open sharing recipient\", \"created_at\": 1794700000000, \"name\": \"globex\", \"owner\": \"data-platform\", \"tokens\": [{\"activation_url\": \"https://example.invalid/SECRET\", \"id\": \"tok-1\"}]}, {\"activated\": true, \"authentication_type\": \"DATABRICKS\", \"cloud\": \"azure\", \"created_at\": 1794700000000, \"data_recipient_global_metastore_id\": \"azure:westeurope:99999999-0000-0000-0000-000000000000\", \"name\": \"initech\", \"owner\": \"data-platform\", \"region\": \"westeurope\", \"sharing_code\": \"SECRET-CODE\"}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/shares\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"shares\": [{\"comment\": \"Daily revenue for partners\", \"created_at\": 1794700000000, \"created_by\": \"admin@acme.com\", \"name\": \"partner_sales\", \"owner\": \"data-platform\"}]}",
+  "status": 200
+ },
+ {
+  "content_type": "application/json",
+  "key": "[\"GET\",\"/api/2.1/unity-catalog/storage-credentials\",[[\"max_results\",\"2\"]],\"\"]",
+  "response": "{\"storage_credentials\": [{\"aws_iam_role\": {\"external_id\": \"SECRET-ID\", \"role_arn\": \"arn:aws:iam::123456789012:role/uc-lake\"}, \"comment\": \"IAM role for the lake bucket\", \"created_at\": 1794700000000, \"id\": \"5ca1ab1e-0000-4000-8000-000000000001\", \"isolation_mode\": \"ISOLATION_MODE_OPEN\", \"name\": \"lake_role\", \"owner\": \"data-platform\", \"read_only\": false, \"used_for_managed_storage\": true}, {\"azure_managed_identity\": {\"access_connector_id\": \"/subscriptions/x/accessConnectors/uc\"}, \"created_at\": 1794700000000, \"id\": \"5ca1ab1e-0000-4000-8000-000000000002\", \"name\": \"adls_mi\", \"owner\": \"data-platform\", \"read_only\": true}]}",
+  "status": 200
+ }
+]

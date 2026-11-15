@@ -1,0 +1,257 @@
+# name: test/sql/unity_catalog.test
+# description: The unity_catalog worker against a strict replay of a real open-source Unity Catalog v0.7.0 server
+# group: [unity_catalog]
+
+require vgi
+
+require-env UNITY_CATALOG_WORKER
+
+require-env UNITY_CATALOG_MOCK
+
+statement ok
+ATTACH 'unity_catalog' (TYPE vgi, LOCATION '{UNITY_CATALOG_WORKER}');
+
+# ---------------------------------------------------------------- configuration errors
+
+statement error
+SELECT count(*) FROM unity_catalog.main.catalogs;
+----
+<REGEX>:.*no Unity Catalog connection.*
+
+statement ok
+CREATE SECRET uc_bad (TYPE unity_catalog, HOST '{UNITY_CATALOG_MOCK}', TOKEN 'wrong-token');
+
+statement error
+SELECT count(*) FROM unity_catalog.main.catalogs;
+----
+<REGEX>:.*HTTP 401.*
+
+statement ok
+DROP SECRET uc_bad;
+
+# PAGE_SIZE 2 makes every listing page (max_results=2 + page_token); the replay server
+# also rate-limits every third distinct request once (429 + Retry-After).
+statement ok
+CREATE SECRET uc (TYPE unity_catalog, HOST '{UNITY_CATALOG_MOCK}', TOKEN 'test-token', PAGE_SIZE 2);
+
+# ---------------------------------------------------------------- metastore, catalogs, schemas
+
+query TIT
+SELECT catalog_tool, length(metastore_id), name FROM unity_catalog.main.metastores;
+----
+unity_catalog	36	NULL
+
+query TTTTT
+SELECT id, platform, owner, description, properties['team'] FROM unity_catalog.main.catalogs ORDER BY id;
+----
+ml	unity_catalog	admin	Machine learning assets	NULL
+sales	unity_catalog	admin	Sales data products	finance
+unity	unity_catalog	NULL	Main catalog	NULL
+
+# name = is a GET /catalogs/{name}
+query TT
+SELECT name, properties['tier'] FROM unity_catalog.main.catalogs WHERE name = 'sales';
+----
+sales	gold
+
+query TTTT
+SELECT id, catalog_name, name, description FROM unity_catalog.main.schemas ORDER BY id;
+----
+ml.models	ml	models	Registered models
+sales.marts	sales	marts	Curated marts
+sales.raw	sales	raw	Landed source data
+unity.default	unity	default	Default schema
+
+query TT
+SELECT id, properties['source'] FROM unity_catalog.main.schemas WHERE catalog_name = 'sales' ORDER BY id;
+----
+sales.marts	NULL
+sales.raw	erp
+
+# ---------------------------------------------------------------- datasets / views / columns
+
+query I
+SELECT count(*) FROM unity_catalog.main.datasets;
+----
+7
+
+query TTTTTTTTTTT
+SELECT id, database, schema, name, qualified_name, subtype, data_source_format, storage_location, container_id,
+       owners, deprecated
+FROM unity_catalog.main.datasets WHERE catalog_name = 'sales' ORDER BY id;
+----
+sales.marts.daily_revenue	sales	marts	daily_revenue	sales.marts.daily_revenue	view	NULL	NULL	sales.marts	[admin]	false
+sales.raw.customers	sales	raw	customers	sales.raw.customers	external	PARQUET	s3://acme-lake/raw/customers	sales.raw	[admin]	false
+sales.raw.orders	sales	raw	orders	sales.raw.orders	external	DELTA	s3://acme-lake/raw/orders	sales.raw	[admin]	false
+
+# id = fetches one table; column_count / partition_columns / custom_properties need the full response
+query TITTT
+SELECT id, column_count, partition_columns, custom_properties['delta.appendOnly'], description
+FROM unity_catalog.main.datasets WHERE id = 'sales.raw.orders';
+----
+sales.raw.orders	6	[order_date]	true	Orders landed nightly from the ERP
+
+# database / schema push down like catalog_name / schema_name
+query TTT
+SELECT id, table_type, tags FROM unity_catalog.main.datasets WHERE database = 'unity' AND schema = 'default' ORDER BY id;
+----
+unity.default.marksheet	MANAGED	NULL
+unity.default.marksheet_uniform	EXTERNAL	NULL
+unity.default.numbers	EXTERNAL	NULL
+unity.default.user_countries	EXTERNAL	NULL
+
+query TTT
+SELECT id, table_type, view_definition FROM unity_catalog.main.views ORDER BY id;
+----
+sales.marts.daily_revenue	VIEW	SELECT order_date, sum(amount) AS revenue FROM sales.raw.orders GROUP BY order_date
+
+query TITTTTTIT
+SELECT column_name, ordinal_position, data_type, native_data_type, nullable, is_primary_key, type_precision,
+       partition_index, description
+FROM unity_catalog.main.columns WHERE dataset_id = 'sales.raw.orders' ORDER BY ordinal_position;
+----
+order_id	1	LONG	bigint	false	false	0	NULL	Order key
+customer_id	2	LONG	bigint	true	false	0	NULL	Customer key
+amount	3	DECIMAL	decimal(18,2)	true	false	18	NULL	Order total
+ordered_at	4	TIMESTAMP	timestamp	true	false	0	NULL	When the order was placed
+tags	5	ARRAY	array<string>	true	false	0	NULL	Free-form labels
+order_date	6	DATE	date	false	false	0	0	Partition date
+
+query TI
+SELECT dataset_id, count(*) FROM unity_catalog.main.columns WHERE catalog_name = 'unity' GROUP BY ALL ORDER BY ALL;
+----
+unity.default.marksheet	3
+unity.default.marksheet_uniform	3
+unity.default.numbers	2
+unity.default.user_countries	3
+
+statement ok
+LOAD json;
+
+query T
+SELECT json_extract_string(type_json, '$.type') FROM unity_catalog.main.columns
+WHERE dataset_id = 'sales.raw.orders' AND column_name = 'amount';
+----
+decimal(18,2)
+
+# ---------------------------------------------------------------- volumes, functions, models
+
+query TTTT
+SELECT id, volume_type, storage_location, description FROM unity_catalog.main.volumes ORDER BY id;
+----
+sales.raw.landing	EXTERNAL	s3://acme-lake/landing	Raw file drops
+unity.default.json_files	EXTERNAL	file:///home/unitycatalog/etc/data/external/unity/default/volumes/json_files	NULL
+unity.default.txt_files	MANAGED	file:///home/unitycatalog/etc/data/managed/unity/default/volumes/txt_files	NULL
+
+query TITTTT
+SELECT id, len(parameters), parameters[1].name, routine_body, external_language, full_data_type
+FROM unity_catalog.main.functions ORDER BY id;
+----
+sales.marts.cents_to_dollars	1	cents	SQL	NULL	DECIMAL(18,2)
+unity.default.lowercase	1	s	EXTERNAL	python	STRING
+unity.default.sum	3	x	EXTERNAL	python	INT
+
+query TTT
+SELECT id, description, owner FROM unity_catalog.main.registered_models ORDER BY id;
+----
+ml.models.churn	Customer churn classifier	admin
+
+query TITTT
+SELECT model_id, version, status, run_id, source FROM unity_catalog.main.model_versions ORDER BY version;
+----
+ml.models.churn	1	READY	run-001	s3://acme-ml/run-001
+ml.models.churn	2	PENDING_REGISTRATION	run-002	s3://acme-ml/run-002
+
+query I
+SELECT count(*) FROM unity_catalog.main.model_versions WHERE model_id = 'ml.models.churn' AND status = 'READY';
+----
+1
+
+# ---------------------------------------------------------------- storage and governance
+
+query TTTT
+SELECT name, url, credential_name, description FROM unity_catalog.main.external_locations;
+----
+lake_raw	s3://acme-lake/raw	lake_role	Raw zone
+
+# open source has no /storage-credentials: the worker falls back to /credentials
+query TTTT
+SELECT name, credential_type, purpose, description FROM unity_catalog.main.storage_credentials;
+----
+lake_role	aws_iam_role	STORAGE	IAM role for the lake bucket
+
+query TTTTT
+SELECT securable_type, securable_name, principal, principal_type, privilege FROM unity_catalog.main.grants ORDER BY ALL;
+----
+catalog	sales	alice@example.com	user	USE_CATALOG
+catalog	sales	bob@example.com	user	CREATE_SCHEMA
+catalog	sales	bob@example.com	user	USE_CATALOG
+function	sales.marts.cents_to_dollars	alice@example.com	user	EXECUTE
+registered_model	ml.models.churn	alice@example.com	user	EXECUTE
+schema	sales.raw	bob@example.com	user	CREATE_TABLE
+schema	sales.raw	bob@example.com	user	USE_SCHEMA
+table	sales.raw.orders	alice@example.com	user	SELECT
+table	sales.raw.orders	bob@example.com	user	MODIFY
+table	sales.raw.orders	bob@example.com	user	SELECT
+volume	sales.raw.landing	bob@example.com	user	READ_VOLUME
+
+# securable_type + securable_name + principal: one GET /permissions/table/sales.raw.orders?principal=...
+query TT
+SELECT principal, privilege FROM unity_catalog.main.grants
+WHERE securable_type = 'table' AND securable_name = 'sales.raw.orders' AND principal = 'bob@example.com' ORDER BY ALL;
+----
+bob@example.com	MODIFY
+bob@example.com	SELECT
+
+query TT
+SELECT securable_name, principal FROM unity_catalog.main.grants
+WHERE securable_type = 'table' AND catalog_name = 'sales' AND privilege = 'SELECT' ORDER BY ALL;
+----
+sales.raw.orders	alice@example.com
+sales.raw.orders	bob@example.com
+
+query TI
+SELECT entity_type, count(*) FROM unity_catalog.main.owners GROUP BY ALL ORDER BY ALL;
+----
+catalog	2
+dataset	3
+external_location	1
+function	1
+registered_model	1
+schema	3
+storage_credential	1
+volume	1
+
+query TTTTT
+SELECT entity_id, entity_name, owner_id, owner_type, ownership_type FROM unity_catalog.main.owners
+WHERE entity_type = 'dataset' ORDER BY entity_id;
+----
+sales.marts.daily_revenue	daily_revenue	admin	group	OWNER
+sales.raw.customers	customers	admin	group	OWNER
+sales.raw.orders	orders	admin	group	OWNER
+
+# ---------------------------------------------------------------- Databricks-only APIs on open source
+
+statement error
+SELECT * FROM unity_catalog.main.connections;
+----
+<REGEX>:.*does not implement.*
+
+statement error
+SELECT * FROM unity_catalog.main.lineage_edges WHERE downstream_id = 'sales.marts.daily_revenue';
+----
+<REGEX>:.*Data Lineage API.*
+
+statement error
+SELECT * FROM unity_catalog.main.tags;
+----
+<REGEX>:.*does not implement.*
+
+# ---------------------------------------------------------------- shared vocabulary: UNION-able shape
+
+query TTT
+SELECT catalog_tool, platform, qualified_name FROM unity_catalog.main.datasets
+WHERE catalog_name = 'sales' AND schema_name = 'raw' ORDER BY qualified_name;
+----
+unity_catalog	unity_catalog	sales.raw.customers
+unity_catalog	unity_catalog	sales.raw.orders

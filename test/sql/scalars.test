@@ -1,0 +1,30 @@
+# name: test/sql/scalars.test
+# description: The offline name scalars (no server, no secret)
+# group: [unity_catalog]
+
+require vgi
+
+require-env UNITY_CATALOG_WORKER
+
+statement ok
+ATTACH 'unity_catalog' (TYPE vgi, LOCATION '{UNITY_CATALOG_WORKER}');
+
+query TTTT
+SELECT unity_catalog.main.uc_qualified_name('Sales.RAW.Orders'),
+       unity_catalog.main.uc_qualified_name('`sales`.`raw`.`daily revenue`'),
+       unity_catalog.main.uc_qualified_name('`a.b`.c'),
+       unity_catalog.main.uc_qualified_name(NULL);
+----
+sales.raw.orders	sales.raw.daily revenue	a.b.c	NULL
+
+query TTT
+SELECT unity_catalog.main.uc_privilege('USE CATALOG'), unity_catalog.main.uc_privilege(' read volume '),
+       unity_catalog.main.uc_privilege(NULL);
+----
+USE_CATALOG	READ_VOLUME	NULL
+
+# vectorized over many rows
+query I
+SELECT count(DISTINCT unity_catalog.main.uc_qualified_name('Cat.Sch.T' || (i % 7)::VARCHAR)) FROM range(5000) t(i);
+----
+7
