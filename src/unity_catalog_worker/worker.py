@@ -326,7 +326,7 @@ class UnityCatalogWorker(Worker):
         schemas=[
             Schema(
                 path=["main"],
-                comment="Unity Catalog securables, grants, owners, tags and lineage as tables.",
+                comment="One Unity Catalog metastore's metadata, read-only, keyed by full object names.",
                 tables=TABLES,
                 functions=list(SCALARS),
                 tags={

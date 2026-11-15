@@ -112,23 +112,26 @@ CATALOG_DOC_MD = (
 )
 
 SCHEMA_DOC_LLM = (
-    "Schema main: one table per Unity Catalog collection. Hierarchy: metastore > catalog > schema > "
-    "table / view / volume / function / registered model; registered models have versions. Ids are full "
-    "names ('catalog', 'catalog.schema', 'catalog.schema.table'); columns.dataset_id = datasets.id, "
-    "datasets.container_id = schemas.id, model_versions.model_id = registered_models.id. grants lists explicit "
-    "privileges per securable (privilege spelled USE_CATALOG, SELECT, ...); effective_grants adds inherited ones "
-    "(Databricks). owners lists the one owner of every object. Push catalog_name / schema_name / id filters down "
-    "to keep scans small; grants, owners, tag_assignments and lineage_edges call the API once per object in "
-    "scope. Databricks-only tables (connections, shares, recipients, effective_grants, tags, tag_assignments, "
-    "lineage_edges) error on open-source servers."
+    "Schema main holds the whole metastore's metadata, one table per Unity Catalog collection, for inventory, "
+    "access reviews, ownership audits and impact analysis. Objects follow Unity Catalog's hierarchy: metastore > "
+    "catalog > schema > securable, and every id is the object's full name ('catalog', 'catalog.schema', "
+    "'catalog.schema.object'), so joins are on full names; each table's description names its own join keys. "
+    "Asset and governance tables use the column names of the shared data-catalog vocabulary (catalog_tool, "
+    "qualified_name, entity_type/entity_id) for UNION ALL with the DataHub and OpenMetadata workers. Pushdown: "
+    "catalog_name / schema_name and = / IN on ids decide which catalogs and schemas the worker lists, and the "
+    "permission, ownership, tagging and lineage tables call the API once per object in scope, so always narrow "
+    "by catalog and schema on large metastores. Some collections exist only on Databricks; on an open-source "
+    "server those tables raise 'not implemented by this server', as each such table's description says. "
+    "Secrets are never returned: credentials appear by name and kind only, connection options are masked."
 )
 
 SCHEMA_DOC_MD = (
     "## main\n\n"
-    "Unity Catalog securables, permissions and lineage as tables: a metastore holds catalogs, a catalog "
-    "holds schemas, and a schema holds tables, views, volumes, functions and registered models.\n\n"
+    "Everything a Unity Catalog metastore knows about its objects, who can use them, who owns them and how "
+    "data flows between them, as read-only tables. A metastore holds catalogs, a catalog holds schemas, and a "
+    "schema holds the securables; ids are full names throughout.\n\n"
     "Filter by `catalog_name` and `schema_name` whenever you can: those predicates decide which schemas the "
-    "worker lists. `grants`, `owners`, `tag_assignments` and `lineage_edges` call the API once per object in "
+    "worker lists, and the permission, ownership, tag and lineage lookups cost one API call per object in "
     "scope.\n\n"
     "Secrets stay in Unity Catalog: storage credentials are listed by name and kind, connection options are "
     "masked and Delta Sharing recipient tokens are never read."
