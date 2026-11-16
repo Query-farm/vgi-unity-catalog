@@ -31,7 +31,7 @@ tables. It is read-only and never reads table data:
 INSTALL vgi FROM community;
 LOAD vgi;
 ATTACH 'unity_catalog' (TYPE vgi,
-  LOCATION 'uvx --from git+https://github.com/Query-farm/vgi-unity-catalog@v0.1.0 vgi-unity-catalog-worker');
+  LOCATION 'uvx --from git+https://github.com/Query-farm/vgi-unity-catalog@v0.1.1 vgi-unity-catalog-worker');
 
 -- open-source Unity Catalog (bin/start-uc-server or the unitycatalog/unitycatalog image)
 CREATE SECRET uc (TYPE unity_catalog, HOST 'http://localhost:8080');
