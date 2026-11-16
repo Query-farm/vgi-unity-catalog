@@ -275,7 +275,7 @@ def retry_delay(header: str | None, attempt: int) -> float:
         try:
             when = email.utils.parsedate_to_datetime(header)
             return max(0.0, min((when - dt.datetime.now(dt.UTC)).total_seconds(), MAX_BACKOFF_SECONDS))
-        except (TypeError, ValueError):
+        except TypeError, ValueError:
             pass
     return min(0.5 * float(2**attempt), MAX_BACKOFF_SECONDS)
 

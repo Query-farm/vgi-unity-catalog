@@ -146,7 +146,7 @@ def to_int(value: Any) -> int | None:
     """Coerce to int, keeping NULL."""
     try:
         return None if value is None or value == "" else int(value)
-    except (TypeError, ValueError):
+    except TypeError, ValueError:
         return None
 
 
