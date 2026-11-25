@@ -25,13 +25,15 @@ tables. It is read-only and never reads table data:
   shares and recipients (names only), governed tags and tag assignments, and table and column
   lineage from the Data Lineage API.
 
+vgi-unity-catalog 0.2.0 speaks VGI protocol 3.4, so it needs Haybarn 2.0.1 or newer (Haybarn 2.0.0 loads a 3.3 `vgi` extension that cannot attach it).
+
 ## Quick start
 
 ```sql
 INSTALL vgi FROM community;
 LOAD vgi;
 ATTACH 'unity_catalog' (TYPE vgi,
-  LOCATION 'uvx --from git+https://github.com/Query-farm/vgi-unity-catalog@v0.1.1 vgi-unity-catalog-worker');
+  LOCATION 'uvx --from git+https://github.com/Query-farm/vgi-unity-catalog@v0.2.0 vgi-unity-catalog-worker');
 
 -- open-source Unity Catalog (bin/start-uc-server or the unitycatalog/unitycatalog image)
 CREATE SECRET uc (TYPE unity_catalog, HOST 'http://localhost:8080');
